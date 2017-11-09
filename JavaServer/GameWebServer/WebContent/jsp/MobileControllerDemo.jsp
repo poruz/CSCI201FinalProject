@@ -22,19 +22,23 @@
 			var cards = [
 				{
 					direction: "north",
-					magnitude: "2"
+					magnitude: "2",
+					gameID: 3469
 				},
 				{
 					direction: "east",
-					magnitude: "3"
+					magnitude: "3",
+					gameID: 3469
 				},
 				{
 					direction: "south",
-					magnitude: "4"
+					magnitude: "4",
+					gameID: 3469
 				},
 				{
 					direction: "west",
-					magnitude: "1"
+					magnitude: "1",
+					gameID: 3469
 				}
 			];
 			function sendCard(i) {

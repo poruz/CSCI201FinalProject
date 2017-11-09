@@ -14,10 +14,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import jdk.nashorn.internal.parser.JSONParser;
-
-
-
 @ServerEndpoint(value = "/ws")
 public class MobileControllerServerSocket {
 
@@ -39,6 +35,8 @@ public class MobileControllerServerSocket {
 		
 		System.out.println("Player used card. Direction: " + card.getDirection() + " magnitude: " + card.getMagnitude());
 		try {
+			// TODO
+			// Instead of sending the card data to each player, just send it to the main game session
 			for(Session s : sessionVector) {
 				s.getBasicRemote().sendText("Player used card. Direction: " + card.getDirection() + " magnitude: " + card.getMagnitude());
 			}
