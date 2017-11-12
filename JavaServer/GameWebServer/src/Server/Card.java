@@ -7,7 +7,7 @@ public class Card {
 
 	private String direction;
 	private int magnitude;
-	private int gameID;
+	private String gameID;
 
 	public String getDirection() {
 		return direction;
@@ -21,10 +21,10 @@ public class Card {
 	public void setMagnitude(int magnitude) {
 		this.magnitude = magnitude;
 	}
-	public int getGameID() {
+	public String getGameID() {
 		return gameID;
 	}
-	public void setGameID(int gameID) {
+	public void setGameID(String gameID) {
 		this.gameID = gameID;
 	}
 }
