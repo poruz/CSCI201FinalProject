@@ -15,9 +15,12 @@ function preload(){
 }
 
 function create(){
+	//Time
 	timeLeftText = game.add.text(32, 32, 'Time Left: ', { font: "24px Century Gothic", fill: "#ffffff", align: "left" });
 	timeText = game.add.text(150, 32, '', { font: "24px Century Gothic", fill: "#00ff00", align: "left" });
 	game.time.events.add(Phaser.Timer.SECOND * TOTAL_TIME, endGame, this);
+	
+	//Ball physics
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	mBall = game.add.sprite(game.world.centerX, 500, 'mBall');
 	mBall.scale.setTo(0.2, 0.2);
@@ -54,6 +57,9 @@ function update(){
 	else if(leftButton.isDown && !rightButton.isDown){
 		mBall.body.velocity.x -= 5;
 	}
+
+	mBall.body.velocity.x *= 0.999;
+	mBall.body.velocity.y *= 0.999;
 }
 
 function render(){
