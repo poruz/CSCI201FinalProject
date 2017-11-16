@@ -18,7 +18,7 @@ const HEIGHT = 40;
 
 
 function preload(){
-	game.stage.backgroundColor = "#000000";
+	game.stage.backgroundColor = "#777777";
 	game.load.image('Ball', "Assets/Ball.png");
 	game.load.image('BlockA', "Assets/BlockA.png");
 	game.load.image('BlockB', "Assets/BlockB.png");
@@ -62,40 +62,48 @@ function LoadLevel() {
     
 	//Load level from popped out level
 	levelData = game.cache.getJSON(mLevels.pop());
-    
+    mBlocks = game.add.group();
+    mBlocks.enableBody = true;
+    mBlocks.physicsBodyType = Phaser.Physics.ARCADE;
     for(var i = 0; i < levelData.levelRows.length; i++)
     {
     	var rowString = levelData.levelRows[i];
     	for(var j = 0; j < rowString.length; j++){
     		if(rowString[j] == 'A')
     		{
-    			var newBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'BlockA');
-    			mBlocks.push(newBlock);
+    			block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockA');
+            	block.body.bounce.set(1);
+            	block.body.immovable = true;
     		}
     		else if(rowString[j] == 'B')
     		{
-    			var newBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'BlockB');
-    			mBlocks.push(newBlock);
+    			block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockB');
+            	block.body.bounce.set(1);
+            	block.body.immovable = true;
     		}
     		else if(rowString[j] == 'C')
     		{
-    			var newBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'BlockC');
-    			mBlocks.push(newBlock);
+    			block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockC');
+            	block.body.bounce.set(1);
+            	block.body.immovable = true;
     		}
     		else if(rowString[j] == 'D')
     		{
-    			var newBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'BlockD');
-    			mBlocks.push(newBlock);
+    			block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockD');
+            	block.body.bounce.set(1);
+            	block.body.immovable = true;
     		}
     		else if(rowString[j] == 'E')
     		{
-    			var newBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'BlockE');
-    			mBlocks.push(newBlock);
+    			block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockE');
+            	block.body.bounce.set(1);
+            	block.body.immovable = true;
     		}
     		else if(rowString[j] == 'F')
     		{
-    			var newBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'BlockF');
-    			mBlocks.push(newBlock);
+    			block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockF');
+            	block.body.bounce.set(1);
+            	block.body.immovable = true;
     		}
     		else if(rowString[j] == 'P')
     		{
@@ -103,6 +111,8 @@ function LoadLevel() {
     		}
     		else if(rowString[j] == 'Q')
     		{
+    			mFinishBlock = mBlocks.create(j*WIDTH, i*HEIGHT, 'Finish');
+    			mFinishBlock.body.immovable;
     			//**Code for finish block
     			//mFinishBlock = game.add.sprite(j*WIDTH, i*HEIGHT , 'Finish');
     			//mBlocks.push(mFinishBlock);
@@ -112,7 +122,7 @@ function LoadLevel() {
 }
 
 function create(){
-	
+	game.physics.startSystem(Phaser.Physics.ARCADE);
 	//LoadLevel
 	LoadLevel();
 	
@@ -124,15 +134,13 @@ function create(){
 	game.world.bringToTop(timeText);
 	
 	//Ball physics
-	game.physics.startSystem(Phaser.Physics.ARCADE);
+	
 	//mBall.anchor.set(0.5); Don't need anchor - collision would be easier without them
 	mBall.enablebody = true;
 	game.physics.enable(mBall, Phaser.Physics.ARCADE);
     mBall.checkWorldBounds = true;
     mBall.body.collideWorldBounds = true;
     mBall.body.bounce.set(1);
-    mBall.body.velocity.x = 5;
-    mBall.body.velocity.y = 5;
     
 	rightButton = this.input.keyboard.addKey(Phaser.KeyCode.D);
 	leftButton = this.input.keyboard.addKey(Phaser.KeyCode.A);
