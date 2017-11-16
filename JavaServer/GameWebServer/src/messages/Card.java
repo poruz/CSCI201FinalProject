@@ -1,4 +1,4 @@
-package Server;
+package messages;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ public class Card {
 
 	private String direction;
 	private int magnitude;
-	private String gameID;
 
 	public String getDirection() {
 		return direction;
@@ -20,11 +19,5 @@ public class Card {
 	}
 	public void setMagnitude(int magnitude) {
 		this.magnitude = magnitude;
-	}
-	public String getGameID() {
-		return gameID;
-	}
-	public void setGameID(String gameID) {
-		this.gameID = gameID;
 	}
 }

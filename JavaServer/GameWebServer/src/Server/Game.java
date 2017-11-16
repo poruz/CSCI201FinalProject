@@ -1,28 +1,44 @@
 package Server;
 
+import javax.websocket.Session;
+
 public class Game {
-	private int gameId;
-	private String mobileUrl;
+	private int numberOfPlayers;
+	private String Id;
+	private Session mainGame;
 	
-	public Game(int gameId, String mobileUrl) {
-		this.gameId = gameId;
-		this.mobileUrl = mobileUrl;
+	public Game(String Id, int numberOfPlayers) {
+		this.setNumberOfPlayers(numberOfPlayers);
+		this.Id = Id;
 	}
 
-	public int getGameId() {
-		return gameId;
+
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
 	}
 
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
 	}
 
-	public String getMobileUrl() {
-		return mobileUrl;
+
+	public String getId() {
+		return Id;
 	}
 
-	public void setMobileUrl(String mobileUrl) {
-		this.mobileUrl = mobileUrl;
+
+	public void setId(String id) {
+		Id = id;
+	}
+
+
+	public Session getMainGame() {
+		return mainGame;
+	}
+
+
+	public void setMainGame(Session mainGame) {
+		this.mainGame = mainGame;
 	}
 
 }
