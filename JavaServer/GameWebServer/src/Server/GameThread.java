@@ -8,6 +8,8 @@ import java.util.Vector;
 
 import javax.websocket.Session;
 
+import com.google.gson.Gson;
+
 import messages.Card;
 
 public class GameThread extends Thread {
@@ -69,10 +71,13 @@ public class GameThread extends Thread {
 
 	public void useCard(Card card) {
 		try {
-			this.getMainSesh().getBasicRemote().sendText("{" + 
-					"					direction: " + card.getDirection() + ",\r\n" + 
-					"					magnitude:" + card.getMagnitude() + ",\r\n" + 
-					"				}");
+
+			System.out.println("Sending..");
+
+			Gson gson = new Gson();
+			String jsonInString = gson.toJson(card);
+			this.getMainSesh().getBasicRemote().sendText(jsonInString);
+			System.out.println("sent!");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

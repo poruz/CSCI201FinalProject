@@ -74,6 +74,7 @@ public class MobileControllerServerSocket {
 				if(gameThread.getRoomName().equals(roomId)) {
 					System.out.println("Sent Move to main");
 					gameThread.useCard(card);
+					System.out.println("Sent Move to main DONE");
 				}
 			}
 			System.out.println("Player used card. Direction: " + card.getDirection() + " magnitude: " + card.getMagnitude());

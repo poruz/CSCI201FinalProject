@@ -62,7 +62,7 @@ public class CreateGame extends HttpServlet {
 		// TODO: Redirect to phaser
     	HttpSession session = request.getSession();  
     	session.setAttribute("roomName", roomName);
-        request.getRequestDispatcher("/jsp/MainScreenDemo.jsp").forward(request, response);
+        request.getRequestDispatcher("/game/index.jsp").forward(request, response);
 
 	}
 
