@@ -10,7 +10,7 @@
 <html>
 	<head>
 		<title><%=roomName%> Room</title>
-		</script><script type="text/javascript" src = "./game/phaser.min.js"></script>
+		<script type="text/javascript" src = "./game/phaser.min.js"></script>
 		<script type="text/javascript" src = "./game/main.js"></script>
 		
 		<script>

@@ -111,6 +111,10 @@ mLevels.push('level06');
 
 function LoadLevel() {
 
+timeLeftText = game.add.text(20, 10, 'Time Left: ', { font: "24px Century Gothic", fill: "#ffffff", align: "left" });
+
+timeText = game.add.text(140, 10, '', { font: "24px Century Gothic", fill: "#00ff00", align: "left" });
+
 game.physics.startSystem(Phaser.Physics.ARCADE);
 
 //Random number between 0 to mLevels.length - 1 (both inclusive)
@@ -274,10 +278,6 @@ LoadLevel();
 
 
 //Time
-
-timeLeftText = game.add.text(20, 10, 'Time Left: ', { font: "24px Century Gothic", fill: "#ffffff", align: "left" });
-
-timeText = game.add.text(140, 10, '', { font: "24px Century Gothic", fill: "#00ff00", align: "left" });
 
 game.time.events.add(Phaser.Timer.SECOND * TOTAL_TIME, endGame, this);
 
