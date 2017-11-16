@@ -9,6 +9,8 @@ var upButton;
 var downButton;
 var mBall;
 var mFinishBlock;
+const NUM_LEVELS = 7;
+var mLevels = [];
 var levelData;
 var mBlocks = []; //an array of all the blocks
 const WIDTH = 40;
@@ -27,11 +29,40 @@ function preload(){
 	//game.load.image('Finish', "Assets/Finish.png"); - TOOO
 	
 	//Load Level
-	game.load.json('level', 'Assets/Level00.json');
+	game.load.json('level00', 'Assets/Level00.json');
+	mLevels.push('level00');
+	game.load.json('level01', 'Assets/Level01.json');
+	mLevels.push('level01');
+	game.load.json('level02', 'Assets/Level02.json');
+	mLevels.push('level02');
+	game.load.json('level03', 'Assets/Level03.json');
+	mLevels.push('level03');
+	game.load.json('level04', 'Assets/Level04.json');
+	mLevels.push('level04');
+	game.load.json('level05', 'Assets/Level05.json');
+	mLevels.push('level05');
+	game.load.json('level06', 'Assets/Level06.json');
+	mLevels.push('level06');
 }
 
+
+/*
+ * Load a random level and remove it from mLevels
+ * If you reach finish block, call this function and it will load the next level
+ * Before calling this function check that mLevels.length > 0
+ */
 function LoadLevel() {
-    levelData = game.cache.getJSON('level');
+	//Random number between 0 to mLevels.length - 1 (both inclusive)
+	var levelIndex = Math.floor(Math.random() * mLevels.length);
+	
+	//Swap the levelIndex level with the last level and then pop it out.
+	var temp = mLevels[mLevels.length - 1];
+	mLevels[mLevels.length - 1] = mLevels[levelIndex];
+	mLevels[levelIndex] = temp;
+    
+	//Load level from popped out level
+	levelData = game.cache.getJSON(mLevels.pop());
+    
     for(var i = 0; i < levelData.levelRows.length; i++)
     {
     	var rowString = levelData.levelRows[i];
