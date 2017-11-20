@@ -31,29 +31,29 @@ function preload(){
 	game.load.audio('levelFinish', 'Assets/levelFinish.wav');
 	
 	game.stage.backgroundColor = "#777777";
-	game.load.image('Ball', "Assets/Ball.png");
-	game.load.image('BlockA', "Assets/BlockA.png");
-	game.load.image('BlockB', "Assets/BlockB.png");
-	game.load.image('BlockC', "Assets/BlockC.png");
-	game.load.image('BlockD', "Assets/BlockD.png");
-	game.load.image('BlockE', "Assets/BlockE.png");
-	game.load.image('BlockF', "Assets/BlockF.png");
-	game.load.image('Finish', "Assets/Finish.png");
+	game.load.image('Ball', "http://localhost:8080/GameWebServer/game/Assets/BlockA.png");
+	game.load.image('BlockA', "http://localhost:8080/GameWebServer/game/Assets/BlockA.png");
+	game.load.image('BlockB', "http://localhost:8080/GameWebServer/game/Assets/BlockB.png");
+	game.load.image('BlockC', "http://localhost:8080/GameWebServer/game/Assets/BlockC.png");
+	game.load.image('BlockD', "http://localhost:8080/GameWebServer/game/Assets/BlockD.png");
+	game.load.image('BlockE', "http://localhost:8080/GameWebServer/game/Assets/BlockE.png");
+	game.load.image('BlockF', "http://localhost:8080/GameWebServer/game/Assets/BlockF.png");
+	game.load.image('Finish', "http://localhost:8080/GameWebServer/game/Assets/Finish.png");
 
 	// Load Level
-	game.load.json('level00', 'Assets/Level00.json');
+	game.load.json('level00', 'http://localhost:8080/GameWebServer/game/Assets/Level00.json');
 	mLevels.push('level00');
-	game.load.json('level01', 'Assets/Level01.json');
+	game.load.json('level01', 'http://localhost:8080/GameWebServer/game/Assets/Level01.json');
 	mLevels.push('level01');
-	game.load.json('level02', 'Assets/Level02.json');
+	game.load.json('level02', 'http://localhost:8080/GameWebServer/game/Assets/Level02.json');
 	mLevels.push('level02');
-	game.load.json('level03', 'Assets/Level03.json');
+	game.load.json('level03', 'http://localhost:8080/GameWebServer/game/Assets/Level03.json');
 	mLevels.push('level03');
-	game.load.json('level04', 'Assets/Level04.json');
+	game.load.json('level04', 'http://localhost:8080/GameWebServer/game/Assets/Level04.json');
 	mLevels.push('level04');
-	game.load.json('level05', 'Assets/Level05.json');
+	game.load.json('level05', 'http://localhost:8080/GameWebServer/game/Assets/Level05.json');
 	mLevels.push('level05');
-	game.load.json('level06', 'Assets/Level06.json');
+	game.load.json('level06', 'http://localhost:8080/GameWebServer/game/Assets/Level06.json');
 	mLevels.push('level06');
 }
 
