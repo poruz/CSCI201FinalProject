@@ -37,10 +37,9 @@
 					if( card.direction == "south"){
 						dir = 3;
 					}
-					console.log(dir);
+					console.log("dir: " +  dir);
 					console.log("mag: " +  card.magnitude);
-					getCard(dir, card.magnitude);
-					document.getElementById("gameBox").innerHTML += event.data + "<br />";
+					useCard(dir, card.magnitude);
 				}
 				socket.onclose = function(event) {
 					document.getElementById("gameBox").innerHTML += "Disconnected!";

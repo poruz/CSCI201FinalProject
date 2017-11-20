@@ -63,7 +63,8 @@ public class MobileControllerServerSocket {
 		Gson gson = new Gson();
 		JsonParser parser = new JsonParser(); 
 		JsonObject json = (JsonObject) parser.parse(message);
-		
+
+		System.out.println("here: " + message);
 		ComPackage pack = gson.fromJson(json, ComPackage.class);
 		
 		if(pack.getType() == 0) {
@@ -72,8 +73,9 @@ public class MobileControllerServerSocket {
 			Card card = pack.getCard();
 			for(GameThread gameThread : gameThreads) {
 				if(gameThread.getRoomName().equals(roomId)) {
-					System.out.println("Sent Move to main");
-					gameThread.useCard(card);
+					System.out.println("here");
+					System.out.println("Sent Move to main -> " + card.getDirection());
+					gameThread.useCard(card, session);
 					System.out.println("Sent Move to main DONE");
 				}
 			}

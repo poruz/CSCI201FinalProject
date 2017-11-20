@@ -8,6 +8,15 @@ public class ComPackage {
 	// 0 = message is a card
 	// 1 = signals the connection of this display game
 	// 2 = signals the end of the game
+	// 3 = signals the game start
+	
+	public ComPackage(Card card, String gameID, int Type)
+	{
+		this.Card = card;
+		this.gameID = gameID;
+		this.Type = Type;
+	}
+	
 	public Card getCard() {
 		return Card;
 	}

@@ -27,12 +27,13 @@ var startGameButton;
 var numPlayers;
 
 function preload(){
-	game.load.audio('bounce', 'Assets/Bounce.wav');
-	game.load.audio('bouncyBounce', 'Assets/BouncyBounce.wav');
-	game.load.audio('levelFinish', 'Assets/levelFinish.wav');
+	game.stage.disableVisibilityChange = true;
+	game.load.audio('bounce', 'http://localhost:8080/GameWebServer/game/Assets/Bounce.wav');
+	game.load.audio('bouncyBounce', 'http://localhost:8080/GameWebServer/game/Assets/BouncyBounce.wav');
+	game.load.audio('levelFinish', 'http://localhost:8080/GameWebServer/game/Assets/levelFinish.wav');
 	
 	game.stage.backgroundColor = "#777777";
-	game.load.image('Ball', "http://localhost:8080/GameWebServer/game/Assets/BlockA.png");
+	game.load.image('Ball', "http://localhost:8080/GameWebServer/game/Assets/Ball1.png");
 	game.load.image('BlockA', "http://localhost:8080/GameWebServer/game/Assets/BlockA.png");
 	game.load.image('BlockB', "http://localhost:8080/GameWebServer/game/Assets/BlockB.png");
 	game.load.image('BlockC', "http://localhost:8080/GameWebServer/game/Assets/BlockC.png");
@@ -102,37 +103,37 @@ function LoadLevel() {
 		    if(rowString[j] == 'A')
 		    {
 		    	block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockA');
-		        block.body.bounce.set(1);
+		        block.body.bounce.set(0.5);
 		        block.body.immovable = true;
 		    }
 		    else if(rowString[j] == 'B')
 		    {
 		    	block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockB');
-		        block.body.bounce.set(1);
+		        block.body.bounce.set(0.5);
 		        block.body.immovable = true;
 		    }
 		    else if(rowString[j] == 'C')
 		    {
 		    	block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockC');
-		        block.body.bounce.set(1);
+		        block.body.bounce.set(0.5);
 		        block.body.immovable = true;
 		    }
 		    else if(rowString[j] == 'D')
 		    {
 		    	block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockD');
-		        block.body.bounce.set(1);
+		        block.body.bounce.set(0.5);
 		        block.body.immovable = true;
 		    }
 		    else if(rowString[j] == 'E')
 		    {
 		    	block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockE');
-		        block.body.bounce.set(1);
+		        block.body.bounce.set(0.5);
 		        block.body.immovable = true;
 		    }
 		    else if(rowString[j] == 'F')
 		    {
 		    	block = mBlocks.create(j*WIDTH, i*HEIGHT,'BlockF');
-		        block.body.bounce.set(1);
+		        block.body.bounce.set(0.5);
 		        block.body.immovable = true;
 		    }
 		    else if(rowString[j] == 'P')
@@ -142,7 +143,7 @@ function LoadLevel() {
 		    	game.physics.enable(mBall, Phaser.Physics.ARCADE);
 		        mBall.checkWorldBounds = true;
 		        mBall.body.collideWorldBounds = true;
-		        mBall.body.bounce.set(1);
+		        mBall.body.bounce.set(0.5);
 		    }
 		    else if(rowString[j] == 'Q')
 		    {
@@ -193,9 +194,9 @@ function create(){
 		bouncyBounceMusic.play();
 		var verify = {
 				type: "1",
-				gameID: roomName
+				// gameID: roomName
 			};
-		socket.send(JSON.stringify(verify));
+		// socket.send(JSON.stringify(verify));
 		startGameButton.destroy();
 	});
 	
@@ -241,8 +242,8 @@ function update(){
 	game.physics.arcade.collide(mBall, mBlocks, ballCollide, null, this);
 	game.physics.arcade.collide(mBall, mFinishBlocks, finishBlock, null, this);
 	
-	mBall.body.velocity.x *= 0.999;
-	mBall.body.velocity.y *= 0.999;
+	mBall.body.velocity.x *= 0.995;
+	mBall.body.velocity.y *= 0.995;
 }
 
 
@@ -268,7 +269,9 @@ function finishBlock(_ball, _block){
 }
 
 
-function getCard(direction, magnitude){ // 0 = right, 1 = up, 2 = left, 3 = down
+function useCard(direction, magnitude){ // 0 = right, 1 = up, 2 = left, 3 = down
+	console.log("Gdir: " +  direction);
+	console.log("Gmag: " +  magnitude);
 	if(direction == 0){
 		mBall.body.velocity.x += magnitude*100;
 	}

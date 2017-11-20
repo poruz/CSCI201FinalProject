@@ -1,16 +1,15 @@
 package Server;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
+import java.util.Random;
 import java.util.Vector;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.websocket.Session;
 
 import com.google.gson.Gson;
 
 import messages.Card;
+import messages.ComPackage;
 
 public class GameThread extends Thread {
 
@@ -29,6 +28,32 @@ public class GameThread extends Thread {
 	}
 
 	public void sendMessage(String message) {
+	}
+	
+	void sendRandomCardToSession(Session session)
+	{
+		ComPackage comPackage = returnCardComPakcage();
+		
+		Gson gson = new Gson();
+		String jsonInString = gson.toJson(comPackage);
+		try {
+			session.getBasicRemote().sendText(jsonInString);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	void sendRandomCardsToAllSessions(int cardsPerPlayer)
+	{
+		for (ClientSocketConnection connection : players)
+		{
+			Session session = connection.getSession();
+			
+			for (int i = 0; i < cardsPerPlayer; i++)
+			{
+				sendRandomCardToSession(session);
+			}
+		}
 	}
 	
 	public void run() {
@@ -60,7 +85,20 @@ public class GameThread extends Thread {
 	public void setNumOfPlayers(int numOfPlayers) {
 		this.numOfPlayers = numOfPlayers;
 	}
-
+	
+	ComPackage returnCardComPakcage()
+	{
+		String[] allDirections = new String[] { "north", "east", "south", "west" };
+		String direction = allDirections[new Random().nextInt(allDirections.length)];
+		int magnitude = ThreadLocalRandom.current().nextInt(1, 6);
+		
+		Card card = new Card(direction, magnitude);
+		int type = 0; 
+		String gameID = game.getId();
+		
+		return new ComPackage(card, gameID, type);
+	}
+	
 	public Session getMainSesh() {
 		return mainSesh;
 	}
@@ -69,17 +107,15 @@ public class GameThread extends Thread {
 		this.mainSesh = mainSesh;
 	}
 
-	public void useCard(Card card) {
+	public void useCard(Card card, Session session) {
 		try {
-
-			System.out.println("Sending..");
-
 			Gson gson = new Gson();
 			String jsonInString = gson.toJson(card);
+			System.out.println("Sending card to main: " + jsonInString);
 			this.getMainSesh().getBasicRemote().sendText(jsonInString);
-			System.out.println("sent!");
+			sendRandomCardToSession(session);
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -88,6 +124,7 @@ public class GameThread extends Thread {
 	public void addPlayer(String roomId, Session session) {
 		ClientSocketConnection newCSC = new ClientSocketConnection(roomId, session);
 		players.add(newCSC);
-		
+		sendRandomCardToSession(session);
+		sendRandomCardToSession(session);
 	}
 }
