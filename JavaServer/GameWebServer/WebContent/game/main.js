@@ -23,7 +23,8 @@ var bouncyBounceMusic;
 var bounceMusic;
 var ifPlayBouncyBounce;
 var levelFinishMusic;
-
+var startGameButton;
+var numPlayers;
 
 function preload(){
 	game.load.audio('bounce', 'Assets/Bounce.wav');
@@ -67,7 +68,8 @@ function preload(){
 function LoadLevel() {
 
 	timeLeftText = game.add.text(20, 10, 'Time Left: ', { font: "24px Century Gothic", fill: "#ffffff", align: "left" });
-	timeText = game.add.text(140, 10, '', { font: "24px Century Gothic", fill: "#00ff00", align: "left" });	
+	timeText = game.add.text(140, 10, TOTAL_TIME, { font: "24px Century Gothic", fill: "#00ff00", align: "left" });	
+	timeText.setText("" + TOTAL_TIME);
 	
 	scoreText = game.add.text(640, 10, 'Score: ', { font: "24px Century Gothic", fill: "#ffffff", align: "left" });
 	scoreValueText = game.add.text(720, 10, mScore, { font: "24px Century Gothic", fill: "#00ff00", align: "left" });
@@ -155,7 +157,7 @@ function LoadLevel() {
 
 
 function create(){
-	
+		
 	mScore = 0;
 	ifPlayBouncyBounce = true;
 	
@@ -167,27 +169,41 @@ function create(){
 	LoadLevel();
 	
 	// Time
-	game.time.events.add(Phaser.Timer.SECOND * TOTAL_TIME, endGame, this);
 	game.world.bringToTop(timeLeftText);
 	game.world.bringToTop(timeText);
+	
+	game.world.bringToTop(scoreText);
+	game.world.bringToTop(scoreValueText);
 	
 	rightButton = this.input.keyboard.addKey(Phaser.KeyCode.D);
 	leftButton = this.input.keyboard.addKey(Phaser.KeyCode.A);
 	upButton = this.input.keyboard.addKey(Phaser.KeyCode.W);
 	downButton = this.input.keyboard.addKey(Phaser.KeyCode.S);
-
+	
+	game.pause = true;
+	//Timer.pause();
+	game.physics.arcade.isPaused = true;
+	startGameButton = game.add.text(300, 280, 'Start Game', { font: "48px Century Gothic", fill: "#ff0000", align: "left" });
+	startGameButton.inputEnabled = true;
+	startGameButton.events.onInputUp.add(function(){
+		game.pause = false;
+		//Timer.resume();
+		game.physics.arcade.isPaused = false;
+		game.time.events.add(Phaser.Timer.SECOND * TOTAL_TIME, endGame, this);
+		bouncyBounceMusic.play();
+		var verify = {
+				type: "1",
+				gameID: roomName
+			};
+		socket.send(JSON.stringify(verify));
+		startGameButton.destroy();
+	});
 	
 }
 
 
 
 function update(){
-
-	if(ifPlayBouncyBounce == true){
-		ifPlayBouncyBounce = false;
-		bouncyBounceMusic.play();
-	}
-	
 	
 	if(mBall.body.blocked.up || mBall.body.blocked.down || mBall.body.blocked.left || mBall.body.blocked.right)
 	{ 
@@ -198,6 +214,10 @@ function update(){
 												// game.time.events.duration/1000
 	{
 		timeText.fill = "#ff0000";
+	}
+	else
+	{
+		timeText.fill = "#00ff00";
 	}
 	
 	timeText.setText("" + parseInt(game.time.events.duration/1000));
