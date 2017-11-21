@@ -50,8 +50,10 @@ public class MobileControllerServerSocket {
 					gameThread.setMainSesh(session);
 					System.out.println("main game connection successful");
 				}
-				System.out.println("Connection made to the room " + roomId);
-				gameThread.addPlayer(roomId, session);
+				else {
+					System.out.println("Connection made to the room " + roomId);
+					gameThread.addPlayer(roomId, session);
+				}
 				return;
 			}
 		}
@@ -73,7 +75,6 @@ public class MobileControllerServerSocket {
 			Card card = pack.getCard();
 			for(GameThread gameThread : gameThreads) {
 				if(gameThread.getRoomName().equals(roomId)) {
-					System.out.println("here");
 					System.out.println("Sent Move to main -> " + card.getDirection());
 					gameThread.useCard(card, session);
 					System.out.println("Sent Move to main DONE");

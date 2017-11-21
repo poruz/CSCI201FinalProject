@@ -16,10 +16,11 @@
 		<script>
 			var roomName = "<%=roomName%>";
 			var socket;
+			setRoomUrl(roomName);
 			function connectToServer() {
 				socket = new WebSocket("ws://localhost:8080/GameWebServer/ws/<%=roomName%>");
 				socket.onopen = function(event) {
-					document.getElementById("gameBox").innerHTML += "Connected!" +  "<br />";
+					// document.getElementById("gameBox").innerHTML += "Connected!" +  "<br />";
 				}
 				socket.onmessage = function(event) {
 					var card = JSON.parse(event.data);
@@ -42,7 +43,7 @@
 					useCard(dir, card.magnitude);
 				}
 				socket.onclose = function(event) {
-					document.getElementById("gameBox").innerHTML += "Disconnected!";
+					// document.getElementById("gameBox").innerHTML += "Disconnected!";
 				}
 			}
 			var verify = {
@@ -57,8 +58,6 @@
 		
 	</head>
 	<body onload="connectToServer();">
-		<h1> To join, go to http://localhost:8080/GameWebServer/c/<%=roomName%> </h1>
-		<br />
-		<div id="gameBox">Game Play Results will end up here: <br> </div>
+		<div id="gameBox"> </div>
 	</body>
 </html>

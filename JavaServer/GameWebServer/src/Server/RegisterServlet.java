@@ -41,12 +41,12 @@ public class RegisterServlet extends HttpServlet {
 		// Mongo credential code
 		MongoClient mongo = new MongoClient( "localhost" , 27017 ); 
 		MongoCredential credential; 
-		credential = MongoCredential.createCredential("Oliver", "BallGameUsers", "password".toCharArray()); 
+		credential = MongoCredential.createCredential("Oliver", "project201", "password".toCharArray()); 
 		System.out.println("Connected to the database successfully");
 		
 		// Accessing the database 
-	    MongoDatabase database = mongo.getDatabase("BallGameUsers"); 
-	    MongoCollection<Document> collection = database.getCollection("users");
+	    MongoDatabase database = mongo.getDatabase("project201"); 
+	    MongoCollection<Document> collection = database.getCollection("usersCollection");
       	
       	Document document = new Document();
       	document.put("username", username);

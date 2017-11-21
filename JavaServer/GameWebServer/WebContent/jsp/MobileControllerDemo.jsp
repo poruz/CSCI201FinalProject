@@ -25,7 +25,7 @@
 			var cards  = [];
 			
 			function connectToServer() {
-				socket = new WebSocket("ws://localhost:8080/GameWebServer/ws/<%=roomName%>");
+				socket = new WebSocket("ws://4f59cf35.ngrok.io/GameWebServer/ws/<%=roomName%>");
 				socket.onopen = function(event) {
 				}
 				socket.onmessage = function(event) {
@@ -105,10 +105,9 @@
 					}
 					var innerCD = ' <div class="text-center align-middle" '
 	               + ' > '
-	               + ' <h1> ' + '<span class="glyphicon glyphicon-arrow-' + dirArrow + '">' + ' </Glyphicon></h1> '
-	              + '   <h1> ' + mag + '</h1> '
 	              + '<button onclick="sendCard(\'' + i + ' \')"> '
-	             + '<h1> <span class="glyphicon glyphicon-upload"></span></h1> '
+	               + ' <div class="playercard"> <div class="card-text"><h1 class="align-text-bottom"> ' + '<span class="glyphicon glyphicon-arrow-' + dirArrow + '">' + ' </Glyphicon></h1> '
+	              + '   <h1> ' + mag + '</h1> </div> </div>'
 	             + '  </button>'
 	              + '</div>' ;
 					 $('<div class="item">' + innerCD + '<div class="carousel-caption"></div>   </div>').appendTo('.carousel-inner');
@@ -125,9 +124,6 @@
 		<div class="container">
 
   <div id="carousel-example-generic" class="carousel slide" data-interval="false" data-ride="carousel">
-    <!-- Indicators -->
-   <!--  <ol class="carousel-indicators" id="indicators">
-    </ol>-->
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox" id="slides">

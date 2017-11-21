@@ -48,7 +48,7 @@ public class GameThread extends Thread {
 		for (ClientSocketConnection connection : players)
 		{
 			Session session = connection.getSession();
-			
+						
 			for (int i = 0; i < cardsPerPlayer; i++)
 			{
 				sendRandomCardToSession(session);
@@ -111,7 +111,7 @@ public class GameThread extends Thread {
 		try {
 			Gson gson = new Gson();
 			String jsonInString = gson.toJson(card);
-			System.out.println("Sending card to main: " + jsonInString);
+			System.out.println("*Sending this card to main: " + jsonInString);
 			this.getMainSesh().getBasicRemote().sendText(jsonInString);
 			sendRandomCardToSession(session);
 			

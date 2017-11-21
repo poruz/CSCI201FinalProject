@@ -3,7 +3,7 @@ var timeLeftText;
 var timeText;
 var scoreText;
 var scoreValueText;
-const TOTAL_TIME = 90;
+const TOTAL_TIME = 120;
 var rightButton;
 var leftButton;
 var upButton;
@@ -25,6 +25,12 @@ var ifPlayBouncyBounce;
 var levelFinishMusic;
 var startGameButton;
 var numPlayers;
+var roomUrl;
+
+
+function setRoomUrl(url){
+	roomUrl = url;
+}
 
 function preload(){
 	game.stage.disableVisibilityChange = true;
@@ -78,7 +84,7 @@ function LoadLevel() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	
 	// Random number between 0 to mLevels.length - 1 (both inclusive)
-	var levelIndex = Math.floor(Math.random() * mLevels.length);
+	var levelIndex =  0; //Math.floor(Math.random() * mLevels.length);
 	
 	// Swap the levelIndex level with the last level and then pop it out.
 	var temp = mLevels[mLevels.length - 1];
@@ -144,6 +150,9 @@ function LoadLevel() {
 		        mBall.checkWorldBounds = true;
 		        mBall.body.collideWorldBounds = true;
 		        mBall.body.bounce.set(0.5);
+		        mBall.body.velocity.x = 0;
+		    	mBall.body.velocity.y = 0;
+		    	mBall.scale.setTo(0.5, 0.5);
 		    }
 		    else if(rowString[j] == 'Q')
 		    {
@@ -184,7 +193,8 @@ function create(){
 	game.pause = true;
 	//Timer.pause();
 	game.physics.arcade.isPaused = true;
-	startGameButton = game.add.text(300, 280, 'Start Game', { font: "48px Century Gothic", fill: "#ff0000", align: "left" });
+	startGameButton = game.add.text(50, 50, 'To join this game,\n get on your phone and go to \n http://4f59cf35.ngrok.io/GameWebServer/c/' + roomUrl + '\n Start Game', { font: "30px Century Gothic", fill: "#ff0000", backgroundColor: 'rgba(0,255,0,1)' });
+	// bmpText = game.add.bitmapText(200, 100, 'desyrel', 'Phaser & Pixi\nrocking!', 64);
 	startGameButton.inputEnabled = true;
 	startGameButton.events.onInputUp.add(function(){
 		game.pause = false;
@@ -223,21 +233,21 @@ function update(){
 	
 	timeText.setText("" + parseInt(game.time.events.duration/1000));
 	
-	if(downButton.isDown && !upButton.isDown){
-		mBall.body.velocity.y += 5;
-	}
-	
-	else if(upButton.isDown && !downButton.isDown){
-		mBall.body.velocity.y -= 5;
-	}
-	
-	if(rightButton.isDown && !leftButton.isDown){
-		mBall.body.velocity.x += 5;
-	}
-	
-	else if(leftButton.isDown && !rightButton.isDown){
-		mBall.body.velocity.x -= 5;
-	}
+//	if(downButton.isDown && !upButton.isDown){
+//		mBall.body.velocity.y += 5;
+//	}
+//	
+//	else if(upButton.isDown && !downButton.isDown){
+//		mBall.body.velocity.y -= 5;
+//	}
+//	
+//	if(rightButton.isDown && !leftButton.isDown){
+//		mBall.body.velocity.x += 5;
+//	}
+//	
+//	else if(leftButton.isDown && !rightButton.isDown){
+//		mBall.body.velocity.x -= 5;
+//	}
 	
 	game.physics.arcade.collide(mBall, mBlocks, ballCollide, null, this);
 	game.physics.arcade.collide(mBall, mFinishBlocks, finishBlock, null, this);
@@ -273,13 +283,17 @@ function useCard(direction, magnitude){ // 0 = right, 1 = up, 2 = left, 3 = down
 	console.log("Gdir: " +  direction);
 	console.log("Gmag: " +  magnitude);
 	if(direction == 0){
+		console.log("Go right");
 		mBall.body.velocity.x += magnitude*100;
+		console.log(mBall.body.velocity.x);
 	}
 	else if(direction == 1){
 		mBall.body.velocity.y -= magnitude*100;
 	}
 	else if(direction == 2){
+		console.log("Go left");
 		mBall.body.velocity.x -= magnitude*100;
+		console.log(mBall.body.velocity.x);
 	}
 	else if(direction == 3){
 		mBall.body.velocity.y += magnitude*100;
