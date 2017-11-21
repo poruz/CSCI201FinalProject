@@ -25,7 +25,7 @@
 			var cards  = [];
 			
 			function connectToServer() {
-				socket = new WebSocket("ws://4f59cf35.ngrok.io/GameWebServer/ws/<%=roomName%>");
+				socket = new WebSocket("ws://aaba2181.ngrok.io/GameWebServer/ws/<%=roomName%>");
 				socket.onopen = function(event) {
 				}
 				socket.onmessage = function(event) {

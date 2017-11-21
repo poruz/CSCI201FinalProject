@@ -46,16 +46,10 @@ public class CreateGame extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String numOfPlayersString = request.getParameter("numberPlayers");
     	String roomName = request.getParameter("roomName");
     	int numOfPlayers = 0;
-    	try {
-        	numOfPlayers = Integer.parseInt(numOfPlayersString);
-    	} catch (NumberFormatException e) {
-    		// TODO: Process validation
-    	}
 
-		System.out.println("Attempting to create game: " + roomName + " for players: " + numOfPlayers);
+		System.out.println("Attempting to create game: " + roomName );
 		MobileControllerServerSocket.addGame(roomName, numOfPlayers);
 
 		// TODO: Set session params for phaser to know what game to connect the socket to

@@ -50,19 +50,20 @@ function preload(){
 
 	// Load Level
 	game.load.json('level00', 'http://localhost:8080/GameWebServer/game/Assets/Level00.json');
-	mLevels.push('level00');
 	game.load.json('level01', 'http://localhost:8080/GameWebServer/game/Assets/Level01.json');
-	mLevels.push('level01');
 	game.load.json('level02', 'http://localhost:8080/GameWebServer/game/Assets/Level02.json');
-	mLevels.push('level02');
 	game.load.json('level03', 'http://localhost:8080/GameWebServer/game/Assets/Level03.json');
-	mLevels.push('level03');
 	game.load.json('level04', 'http://localhost:8080/GameWebServer/game/Assets/Level04.json');
-	mLevels.push('level04');
 	game.load.json('level05', 'http://localhost:8080/GameWebServer/game/Assets/Level05.json');
-	mLevels.push('level05');
 	game.load.json('level06', 'http://localhost:8080/GameWebServer/game/Assets/Level06.json');
+	
 	mLevels.push('level06');
+	mLevels.push('level05');
+	mLevels.push('level04');
+	mLevels.push('level03');
+	mLevels.push('level02');
+	mLevels.push('level01');
+	mLevels.push('level00');
 }
 
 
@@ -84,12 +85,12 @@ function LoadLevel() {
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	
 	// Random number between 0 to mLevels.length - 1 (both inclusive)
-	var levelIndex =  0; //Math.floor(Math.random() * mLevels.length);
+	//var levelIndex =  0; //Math.floor(Math.random() * mLevels.length);
 	
 	// Swap the levelIndex level with the last level and then pop it out.
-	var temp = mLevels[mLevels.length - 1];
-	mLevels[mLevels.length - 1] = mLevels[levelIndex];
-	mLevels[levelIndex] = temp;
+	//var temp = mLevels[mLevels.length - 1];
+	//mLevels[mLevels.length - 1] = mLevels[levelIndex];
+	//mLevels[levelIndex] = temp;
 	
 	// Load level from popped out level
 	levelData = game.cache.getJSON(mLevels.pop());
@@ -193,8 +194,7 @@ function create(){
 	game.pause = true;
 	//Timer.pause();
 	game.physics.arcade.isPaused = true;
-	startGameButton = game.add.text(50, 50, 'To join this game,\n get on your phone and go to \n http://4f59cf35.ngrok.io/GameWebServer/c/' + roomUrl + '\n Start Game', { font: "30px Century Gothic", fill: "#ff0000", backgroundColor: 'rgba(0,255,0,1)' });
-	// bmpText = game.add.bitmapText(200, 100, 'desyrel', 'Phaser & Pixi\nrocking!', 64);
+	startGameButton = game.add.text(100, 100, 'To join this game,\n get on your phone and go to \n http://aaba2181.ngrok.io/GameWebServer/c/' + roomUrl + '\n Start Game', { font: "20px Century Gothic", fill: "#ff0000", backgroundColor: 'rgba(0,255,0,1)' });
 	startGameButton.inputEnabled = true;
 	startGameButton.events.onInputUp.add(function(){
 		game.pause = false;
@@ -232,22 +232,6 @@ function update(){
 	}
 	
 	timeText.setText("" + parseInt(game.time.events.duration/1000));
-	
-//	if(downButton.isDown && !upButton.isDown){
-//		mBall.body.velocity.y += 5;
-//	}
-//	
-//	else if(upButton.isDown && !downButton.isDown){
-//		mBall.body.velocity.y -= 5;
-//	}
-//	
-//	if(rightButton.isDown && !leftButton.isDown){
-//		mBall.body.velocity.x += 5;
-//	}
-//	
-//	else if(leftButton.isDown && !rightButton.isDown){
-//		mBall.body.velocity.x -= 5;
-//	}
 	
 	game.physics.arcade.collide(mBall, mBlocks, ballCollide, null, this);
 	game.physics.arcade.collide(mBall, mFinishBlocks, finishBlock, null, this);

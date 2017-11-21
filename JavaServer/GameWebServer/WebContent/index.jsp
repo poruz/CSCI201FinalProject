@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create New Game</title>
-</head>
+<title>Welcome to Roll A Ball</title>
 		<style>
 			body {
 				font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
@@ -30,10 +29,8 @@
 			
 			}
 		</style>
+</head>
 <body>
-<form name="CreateGameForm" method="post" action="../CreateGame">
-    Room Name: <input type="text" name="roomName"/> <br/>
-    <input type="submit" value="Submit" />
-</form>
+
 </body>
 </html>

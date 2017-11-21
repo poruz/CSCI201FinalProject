@@ -59,13 +59,13 @@
 		</script>
 	</head>
 	<body>
+	<div> <h1> Welcome To Roll A Ball!</h1></div>
 		<div id="message">6 to 20 characters, and no spaces.</div>
 		<form name="MainForm" id="MainForm" method="POST" onsubmit="return verifyLogin();" action="">
 			Username: <input type="text" id="username" name="username"><br>
-			Password: <input type="text" id="password" name="password"><br>
+			Password: <input type="password" id="password" name="password"><br>
 			<input type="submit" value="Login" id="login" name="login" onclick="form.action='../LoginServlet';">
 			<input type="submit" value="Register" id="register" name="register" onclick="form.action='../RegisterServlet';">
-			<input type="submit" value="Continue As Guest" id="guest" name="guest" onclick="loginAsGuest(); form.action='../LoginServlet';">
 		</form>
 	</body>
 </html>

@@ -45,15 +45,14 @@ public class LoginServlet extends HttpServlet {
 		// Mongo credential code
 		MongoClient mongo = new MongoClient( "localhost" , 27017 ); 
 		MongoCredential credential; 
-		credential = MongoCredential.createCredential("Oliver", "BallGameUsers", "password".toCharArray()); 
+		credential = MongoCredential.createCredential("Oliver", "project201", "password".toCharArray()); 
 		System.out.println("Connected to the database successfully");
 		
 		// Accessing the database 
-	    MongoDatabase database = mongo.getDatabase("BallGameUsers"); 
-	    MongoCollection<Document> collection = database.getCollection("users");
+	    MongoDatabase database = mongo.getDatabase("project201"); 
+	    MongoCollection<Document> collection = database.getCollection("usersCollection");
 	    
 	    Document thisUser = collection.find(and(eq("username", username), eq("password", password))).first();
-	    
 	    
 	    if (thisUser == null) 
 	    {
@@ -61,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 	    }
 	    else
 	    {
-	    	System.out.println("HERE");
+	    	response.sendRedirect(request.getContextPath()+"/jsp/CreateGame.jsp");
 	    }
 	}
 
